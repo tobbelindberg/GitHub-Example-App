@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/red</color>
+    <color name="colorPrimaryDark">@color/red</color>
+    <color name="colorAccent">@color/red</color>
+
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+
+    <color name="grey_100">#DEDEDE</color> <!-- Divider -->
+    <color name="grey_500">#888</color> <!-- Timestamps etc -->
+    <color name="grey_700">#525052</color> <!-- Info text -->
+    <color name="grey_800">#313032</color> <!-- Titles -->
+
+    <color name="red">#DD002F</color>
+
+</resources>

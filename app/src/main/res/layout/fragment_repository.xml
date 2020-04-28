@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.github.ui.toprepositories.repository.RepositoryFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.github.ui.toprepositories.repository.RepositoryViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="@{viewModel.title}" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/margin_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            tools:background="@color/white">
+
+            <TextView
+                android:id="@+id/owner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:ellipsize="end"
+                android:text="@{viewModel.owner}"
+                android:textColor="@color/grey_500"
+                android:textSize="20sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/star_count"
+                app:layout_constraintEnd_toStartOf="@id/star_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="microsoft" />
+
+            <TextView
+                android:id="@+id/language"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:ellipsize="end"
+                android:text="@{viewModel.language}"
+                android:textColor="@color/grey_500"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@id/watchers_icon"
+                app:layout_constraintStart_toStartOf="@id/owner"
+                app:layout_constraintTop_toBottomOf="@id/owner"
+                tools:text="Kotlin" />
+
+            <ImageView
+                android:id="@+id/star_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_star"
+                android:tint="@color/red"
+                app:layout_constraintBottom_toBottomOf="@id/star_count"
+                app:layout_constraintEnd_toStartOf="@id/star_count"
+                app:layout_constraintTop_toTopOf="@id/star_count" />
+
+            <TextView
+                android:id="@+id/star_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.starCount}"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="45" />
+
+            <ImageView
+                android:id="@+id/watchers_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_eye"
+                android:tint="@color/red"
+                app:layout_constraintBottom_toBottomOf="@id/watchers_count"
+                app:layout_constraintEnd_toStartOf="@id/watchers_count"
+                app:layout_constraintTop_toTopOf="@id/watchers_count" />
+
+            <TextView
+                android:id="@+id/watchers_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.watcherCount}"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/star_count"
+                tools:text="45" />
+
+            <ImageView
+                android:id="@+id/forks_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_fork"
+                android:tint="@color/red"
+                app:layout_constraintBottom_toBottomOf="@id/forks_count"
+                app:layout_constraintEnd_toStartOf="@id/forks_count"
+                app:layout_constraintTop_toTopOf="@id/forks_count" />
+
+            <TextView
+                android:id="@+id/forks_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.forksCount}"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/watchers_count"
+                tools:text="45" />
+
+            <ImageView
+                android:id="@+id/issue_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_issue"
+                android:tint="@color/red"
+                app:layout_constraintBottom_toBottomOf="@id/issue_count"
+                app:layout_constraintEnd_toStartOf="@id/issue_count"
+                app:layout_constraintTop_toTopOf="@id/issue_count" />
+
+            <TextView
+                android:id="@+id/issue_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.openIssuesCount}"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/forks_count"
+                tools:text="45" />
+
+            <TextView
+                android:id="@+id/updated_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:text="@{viewModel.updatedAt}"
+                android:textColor="@color/grey_500"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/issue_count"
+                tools:text="MMM d, yyyy HH:mm" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GitHub</string>
+    <string name="error_message">An error occurred. Check if you have internet connection and try again.</string>
+    <string name="repositories">Repositories</string>
+    <string name="last_updated">Last updated: %s</string>
+
+    <string name="try_again">Try again</string>
+</resources>

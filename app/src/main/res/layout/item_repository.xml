@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.github.ui.toprepositories.vm.RepositoryItemViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/margin_default"
+        tools:background="@color/white">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:ellipsize="end"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/grey_800"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/star_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/star_count"
+            tools:text="vscode" />
+
+        <ImageView
+            android:id="@+id/star_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_star"
+            android:tint="@color/red"
+            app:layout_constraintBottom_toBottomOf="@id/star_count"
+            app:layout_constraintEnd_toStartOf="@id/star_count"
+            app:layout_constraintTop_toTopOf="@id/star_count" />
+
+        <TextView
+            android:id="@+id/star_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@{viewModel.starCount}"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="45" />
+
+        <TextView
+            android:id="@+id/owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.owner}"
+            android:textColor="@color/grey_500"
+            android:textSize="14sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="microsoft" />
+
+        <TextView
+            android:id="@+id/updated_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.updatedAt}"
+            android:textColor="@color/grey_500"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/owner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/owner"
+            tools:text="MMM d, yyyy HH:mm" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
