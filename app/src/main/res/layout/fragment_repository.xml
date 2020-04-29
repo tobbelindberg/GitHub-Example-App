@@ -26,6 +26,7 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,9 +42,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_container"
+            clipToOutline="@{true}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?selectableItemBackground"
+            android:background="@drawable/bg_white_rect"
+            android:elevation="6dp"
             android:padding="@dimen/margin_default"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +61,7 @@
                 android:ellipsize="end"
                 android:text="@{viewModel.owner}"
                 android:textColor="@color/grey_500"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/star_count"
                 app:layout_constraintEnd_toStartOf="@id/star_icon"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +99,7 @@
                 android:includeFontPadding="false"
                 android:text="@{viewModel.starCount}"
                 android:textColor="@color/red"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="45" />
@@ -120,7 +123,7 @@
                 android:includeFontPadding="false"
                 android:text="@{viewModel.watcherCount}"
                 android:textColor="@color/red"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/star_count"
                 tools:text="45" />
@@ -144,7 +147,7 @@
                 android:includeFontPadding="false"
                 android:text="@{viewModel.forksCount}"
                 android:textColor="@color/red"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/watchers_count"
                 tools:text="45" />
@@ -168,10 +171,21 @@
                 android:includeFontPadding="false"
                 android:text="@{viewModel.openIssuesCount}"
                 android:textColor="@color/red"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/forks_count"
                 tools:text="45" />
+
+            <TextView
+                android:id="@+id/pull_requests"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/pull_requests"
+                android:textColor="@color/grey_800"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/updated_at" />
 
             <TextView
                 android:id="@+id/updated_at"
@@ -183,16 +197,71 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/issue_count"
-                tools:text="MMM d, yyyy HH:mm" />
+                tools:text="Last updated: MMM d, yyyy HH:mm" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            clipToOutline="@{true}"
+            itemDecoration="@{fragment.itemDecoration}"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey_100"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:adapter="@{fragment.adapter}"
+            app:diffConfig="@{fragment.diffConfig}"
+            app:itemBinding="@{fragment.itemBinding}"
+            app:itemIds="@{fragment.itemIds}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_container" />
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            goneUnless="@{viewModel.loadingVisible}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_container" />
+
+        <TextView
+            android:id="@+id/error_text"
+            goneUnless="@{viewModel.errorVisible}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:gravity="center"
+            android:text="@string/error_message"
+            android:textColor="@color/grey_700"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/error_retry_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_container"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Button
+            android:id="@+id/error_retry_button"
+            goneUnless="@{viewModel.errorVisible}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            android:onClick="@{fragment::onErrorRetry}"
+            android:paddingStart="48dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="48dp"
+            android:paddingBottom="14dp"
+            android:text="@string/try_again"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

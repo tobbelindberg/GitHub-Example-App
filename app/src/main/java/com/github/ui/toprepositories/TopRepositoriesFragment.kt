@@ -40,7 +40,7 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
     val itemIds = BindingRecyclerViewAdapterIds
 
     val adapter = GitHubBindingRecyclerViewAdapter<RepositoryItemViewModel>()
-    var restoredRecyclerViewState: Parcelable? = null
+    private var restoredRecyclerViewState: Parcelable? = null
 
     val diffConfig = AsyncDifferConfig.Builder(object :
         DiffUtil.ItemCallback<RepositoryItemViewModel>() {

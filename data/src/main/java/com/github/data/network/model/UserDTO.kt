@@ -1,3 +1,3 @@
 package com.github.data.network.model
 
-data class OwnerDTO(val login: String)
+data class UserDTO(val login: String)

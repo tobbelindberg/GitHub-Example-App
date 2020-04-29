@@ -5,7 +5,7 @@ import java.util.*
 data class RepositoryDTO(
     val id: Long,
     val name: String,
-    val owner: OwnerDTO,
+    val owner: UserDTO,
     val stargazers_count: Int,
     val forks_count: Int,
     val watchers_count: Int,

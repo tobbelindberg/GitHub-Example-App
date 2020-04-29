@@ -110,6 +110,18 @@ class TopRepositoriesViewModelTest {
     }
 
     @Test
+    fun testStarCountAtIndexThree() {
+        viewModel.initStateObservable()
+        okHttpCountDownLatch.await()
+
+        Assert.assertEquals(
+            " The expected amount of stars does not match",
+            "147695",
+            viewModel.items.get()!![3].starCount
+        )
+    }
+
+    @Test
     fun testOwnerAtIndexZero() {
         viewModel.initStateObservable()
         okHttpCountDownLatch.await()

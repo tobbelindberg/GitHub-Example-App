@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.ui.toprepositories.vm.RepositoryItemViewModel" />
+            type="com.github.ui.toprepositories.repository.vm.PullRequestItemViewModel" />
     </data>
 
 
@@ -24,50 +24,52 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
             android:ellipsize="end"
+            android:maxLength="2"
             android:text="@{viewModel.title}"
             android:textColor="@color/grey_800"
             android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@id/star_count"
-            app:layout_constraintEnd_toStartOf="@id/star_icon"
+            app:layout_constraintBaseline_toBaselineOf="@id/state"
+            app:layout_constraintEnd_toStartOf="@id/state"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="vscode" />
-
-        <ImageView
-            android:id="@+id/star_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/ic_star"
-            android:tint="@color/red"
-            app:layout_constraintBottom_toBottomOf="@id/star_count"
-            app:layout_constraintEnd_toStartOf="@id/star_count"
-            app:layout_constraintTop_toTopOf="@id/star_count" />
+            tools:text="Cool feature that is amazing in so many ways" />
 
         <TextView
-            android:id="@+id/star_count"
+            android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{viewModel.starCount}"
+            android:text="@{viewModel.state}"
             android:textColor="@color/red"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="45" />
+            tools:text="Open" />
 
         <TextView
-            android:id="@+id/owner"
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{viewModel.owner}"
+            android:text="@{viewModel.userName}"
             android:textColor="@color/grey_500"
             android:textSize="14sp"
 
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="microsoft" />
+            tools:text="Sven" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.number}"
+            android:textColor="@color/grey_500"
+            android:textSize="14sp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_name"
+            tools:text="1337" />
 
         <TextView
             android:id="@+id/updated_at"
@@ -76,9 +78,9 @@
             android:text="@{viewModel.updatedAt}"
             android:textColor="@color/grey_500"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/owner"
+            app:layout_constraintBottom_toBottomOf="@id/number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/owner"
+            app:layout_constraintTop_toTopOf="@id/number"
             tools:text="Last updated: MMM d, yyyy HH:mm" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
