@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
             android:ellipsize="end"
-            android:maxLength="2"
+            android:maxLines="2"
             android:text="@{viewModel.title}"
             android:textColor="@color/grey_800"
             android:textSize="18sp"
