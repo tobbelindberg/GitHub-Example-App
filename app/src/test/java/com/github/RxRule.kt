@@ -35,11 +35,11 @@ class RxRule : TestRule {
         return object : Statement() {
             @Throws(Throwable::class)
             override fun evaluate() {
-                RxJavaPlugins.setInitIoSchedulerHandler { scheduler -> immediate }
-                RxJavaPlugins.setInitComputationSchedulerHandler { scheduler -> immediate }
-                RxJavaPlugins.setInitNewThreadSchedulerHandler { scheduler -> immediate }
-                RxJavaPlugins.setInitSingleSchedulerHandler { scheduler -> immediate }
-                RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> immediate }
+                RxJavaPlugins.setInitIoSchedulerHandler { _ -> immediate }
+                RxJavaPlugins.setInitComputationSchedulerHandler { _ -> immediate }
+                RxJavaPlugins.setInitNewThreadSchedulerHandler { _ -> immediate }
+                RxJavaPlugins.setInitSingleSchedulerHandler { _ -> immediate }
+                RxAndroidPlugins.setInitMainThreadSchedulerHandler { _ -> immediate }
 
                 try {
                     base.evaluate()
