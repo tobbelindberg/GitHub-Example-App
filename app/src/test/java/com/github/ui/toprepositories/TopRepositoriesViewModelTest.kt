@@ -40,7 +40,7 @@ class TopRepositoriesViewModelTest {
     @Mock
     private lateinit var mockContextResources: Resources
 
-    var okHttpCountDownLatch: CountDownLatch = CountDownLatch(1)
+    private var okHttpCountDownLatch: CountDownLatch = CountDownLatch(1)
 
 
     private lateinit var testAppModule: TestAppModule

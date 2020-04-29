@@ -66,7 +66,7 @@ open class AppModule(private val appContext: Context) {
     }
 
     @Provides
-    internal fun provideEndpints(
+    internal fun provideEndpoints(
         gson: Gson,
         baseUrl: String,
         okHttpClient: OkHttpClient

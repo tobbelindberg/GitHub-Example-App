@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * In the repositories is where I would also inject a cache that would cache the repositories and such.
+ * In the repos is where I would also inject a cache that would cache the repositories and such.
  */
 @Singleton
 class RepositoryRepo

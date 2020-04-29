@@ -5,7 +5,6 @@
     <color name="colorAccent">@color/red</color>
 
     <color name="white">#FFF</color>
-    <color name="black">#000</color>
 
     <color name="grey_100">#DEDEDE</color> <!-- Divider -->
     <color name="grey_500">#888</color> <!-- Timestamps etc -->

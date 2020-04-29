@@ -27,7 +27,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    testImplementation 'junit:junit:4.13'
 
     api project(path: ':domain')
 
@@ -44,4 +43,5 @@ dependencies {
 
     compileOnly "org.jetbrains:annotations:13.0"
     testCompileOnly "org.jetbrains:annotations:13.0"
+    testImplementation 'junit:junit:4.13'
 }
