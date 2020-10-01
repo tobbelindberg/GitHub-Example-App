@@ -35,8 +35,8 @@ dependencies {
     api "com.squareup.okhttp3:logging-interceptor:4.5.0"
 
     // Retrofit
-    api 'com.squareup.retrofit2:retrofit:2.8.1'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     api 'com.squareup.retrofit2:converter-gson:2.6.0'
 
     compileOnly "javax.inject:javax.inject:1"

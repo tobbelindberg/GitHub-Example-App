@@ -2,7 +2,7 @@ package com.github.base.vm
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
     protected val subscriptions = CompositeDisposable()

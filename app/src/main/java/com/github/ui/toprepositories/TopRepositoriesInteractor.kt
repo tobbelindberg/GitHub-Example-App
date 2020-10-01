@@ -8,9 +8,9 @@ import com.github.ui.toprepositories.state.PageError
 import com.github.ui.toprepositories.state.PageLoaded
 import com.github.ui.toprepositories.state.PageLoading
 import com.github.ui.toprepositories.state.TopRepositoriesState
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
 
 class TopRepositoriesInteractor
@@ -44,7 +44,7 @@ class TopRepositoriesInteractor
             .subscribeOn(Schedulers.io())
             .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
             .onErrorReturn { PageError(it) }
-            .startWith(PageLoading())
+            .startWithItem(PageLoading())
     }
 
     private fun refresh(): Observable<PartialState<TopRepositoriesState>> {
@@ -53,7 +53,7 @@ class TopRepositoriesInteractor
                 .subscribeOn(Schedulers.io())
                 .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
                 .onErrorReturn { PageError(it) }
-                .startWith(PageLoading())
+                .startWithItem(PageLoading())
         }
     }
 

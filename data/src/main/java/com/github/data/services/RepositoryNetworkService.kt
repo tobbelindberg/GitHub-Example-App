@@ -7,7 +7,7 @@ import com.github.domain.mapper.ObjectMapper
 import com.github.domain.model.PullRequest
 import com.github.domain.model.Repository
 import com.github.domain.services.RepositoryService
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 class RepositoryNetworkService

@@ -2,7 +2,7 @@ package com.github.data.network
 
 import com.github.data.network.model.PullRequestDTO
 import com.github.data.network.model.SearchResponseDTO
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 
