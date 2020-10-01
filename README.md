@@ -22,8 +22,6 @@ The app consists of three modules:
 ## Unit testing
 There is unit tests that you can find in the `app` module. It's using `OkHttps` `MockWebServer` that reads a copy of the GitHub API response from the `resources` folder and like that you can unit test everything from `ViewModel`s all the way down to the network services and this can run on a CI server without any need of an emulator or device.
 
-In order to run the test you might need to run the test once with a fail because it needs to generate `DaggerTestAppComponent` but on your second run you should see the tests passing.
-
 ## Third party Dependencies
 ### RxKotlin
 All the communication between the different layers are using RxKotlin.
