@@ -2,28 +2,39 @@ package com.github.di
 
 import android.content.Context
 import okhttp3.OkHttpClient
+import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import okhttp3.mockwebserver.RecordedRequest
 
 
 /**
  * Provides Test components and modules used all over the place here and hosts a mock server
  * that delivers the provided response.
  *
- * @param mockResponse A json mock response that the mock server should return for the given unit
- * test.
+ * @param mockResponses The first string in the pair is the endpoint path and the second one is it's
+ * corresponding response.
  */
 class TestAppModule(
     mockAppContext: Context,
-    mockResponse: String,
-    private val okHttpIdleCallback: Runnable
+    private val okHttpIdleCallback: Runnable,
+    vararg mockResponses: Pair<String, String>
 ) :
     AppModule(mockAppContext) {
 
     private val mockWebServer = MockWebServer()
 
+    val mockResponseMap = mockResponses.toMap()
+
     init {
-        mockWebServer.enqueue(MockResponse().setBody(mockResponse))
+        mockWebServer.dispatcher = object : Dispatcher() {
+            @Throws(InterruptedException::class)
+            override fun dispatch(request: RecordedRequest): MockResponse {
+                return mockResponseMap[request.path]?.let { response ->
+                    MockResponse().setBody(response)
+                } ?: MockResponse().setResponseCode(404)
+            }
+        }
         mockWebServer.start()
     }
 
@@ -40,4 +51,5 @@ class TestAppModule(
         okHttp.dispatcher.idleCallback = okHttpIdleCallback
         return okHttp
     }
+
 }

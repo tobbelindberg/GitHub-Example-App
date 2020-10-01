@@ -1,11 +1,11 @@
 package com.github
 
-import io.reactivex.Scheduler
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.annotations.NonNull
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.schedulers.ExecutorScheduler
-import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
+import io.reactivex.rxjava3.annotations.NonNull
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.internal.schedulers.ExecutorScheduler
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
@@ -27,7 +27,7 @@ class RxRule : TestRule {
         }
 
         override fun createWorker(): Worker {
-            return ExecutorScheduler.ExecutorWorker(Executor { it.run() }, false)
+            return ExecutorScheduler.ExecutorWorker({ it.run() }, false, false)
         }
     }
 

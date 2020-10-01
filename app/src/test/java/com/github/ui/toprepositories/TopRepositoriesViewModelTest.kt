@@ -83,10 +83,12 @@ class TopRepositoriesViewModelTest {
         okHttpCountDownLatch = CountDownLatch(1)
         testAppModule = TestAppModule(
             mockApplicationContext,
-            TestFileLoader.readJsonFileFromAssets("top_repositories.json"),
             Runnable {
                 okHttpCountDownLatch.countDown()
-            }
+            },
+            "/search/repositories?o=desc&s=stars&q=stars:%3E=50000" to TestFileLoader.readJsonFileFromAssets(
+                "top_repositories.json"
+            )
         )
         DaggerTestAppComponent.builder().appModule(testAppModule).build().inject(this)
     }
