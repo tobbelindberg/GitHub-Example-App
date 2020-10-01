@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import com.github.BR
@@ -16,6 +18,7 @@ import com.github.base.GitHubApplication
 import com.github.bindings.tatarka.BindingRecyclerViewAdapterIds
 import com.github.bindings.tatarka.BindingViewHolder
 import com.github.bindings.tatarka.GitHubBindingRecyclerViewAdapter
+import com.github.data.parcelable.RepositoryParcelable
 import com.github.databinding.FragmentTopRepositoriesBinding
 import com.github.ui.toprepositories.vm.RepositoryItemViewModel
 import com.github.utils.bindingProvider
@@ -63,8 +66,13 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
         BindingViewHolder(
             binding,
             adapter,
-            R.layout.item_repository to { _, repository, _ ->
-                navigator?.openRepository(repository.repository)
+            R.layout.item_repository to { _, repositoryItem, _ ->
+                val direction =
+                    TopRepositoriesFragmentDirections.actionTopRepositoriesFragmentToRepositoryFragment(
+                        RepositoryParcelable.fromRepository(repositoryItem.repository)
+                    )
+
+                navController.navigate(direction)
             })
     }
 
@@ -82,6 +90,11 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding.toolbar.setupWithNavController(
+            navController,
+            AppBarConfiguration(navController.graph)
+        )
+
         itemDecoration = IndicesSkippingDividerItemDecoration(
             requireContext(),
             IndicesSkippingDividerItemDecoration.VERTICAL,
@@ -126,9 +139,9 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
     }
 
     companion object {
-        const val RECYCLER_VIEW_STATE = "recycler_view_state"
 
-        fun newInstance() = TopRepositoriesFragment()
+        private const val RECYCLER_VIEW_STATE = "recycler_view_state"
+
     }
 
 }

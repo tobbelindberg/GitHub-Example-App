@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import com.github.BR
@@ -17,10 +18,7 @@ import com.github.base.BaseFragment
 import com.github.base.GitHubApplication
 import com.github.bindings.tatarka.BindingRecyclerViewAdapterIds
 import com.github.bindings.tatarka.GitHubBindingRecyclerViewAdapter
-import com.github.data.parcelable.RepositoryParcelable
 import com.github.databinding.FragmentRepositoryBinding
-import com.github.domain.model.Repository
-import com.github.ui.toprepositories.TopRepositoriesFragment
 import com.github.ui.toprepositories.repository.vm.PullRequestItemViewModel
 import com.github.utils.FragmentTransitionAnimations
 import com.github.utils.bindingProvider
@@ -83,26 +81,22 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val repository =
-            requireArguments().getParcelable<RepositoryParcelable>(REPOSITORY_PARCELABLE)!!
-                .toRepository()
+            RepositoryFragmentArgs.fromBundle(requireArguments()).repository.toRepository()
 
         (requireActivity().application as GitHubApplication).appComponent.repositoryBuilder()
             .setRepository(repository)
             .build().inject(this)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        navigator = null
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.toolbar.setNavigationOnClickListener(::onNavigationBackClick)
+        binding.toolbar.setupWithNavController(
+            navController,
+            AppBarConfiguration(navController.graph)
+        )
 
         itemDecoration = IndicesSkippingDividerItemDecoration(
             requireContext(),
@@ -114,10 +108,6 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
         binding.viewModel = viewModel
 
         return binding.root
-    }
-
-    fun onNavigationBackClick(view: View) {
-        navigator?.onBackPressed()
     }
 
     fun onErrorRetry(view: View) {
@@ -136,10 +126,10 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBundle(
-            TopRepositoriesFragment.RECYCLER_VIEW_STATE,
+            RECYCLER_VIEW_STATE,
             Bundle().apply {
                 putParcelable(
-                    TopRepositoriesFragment.RECYCLER_VIEW_STATE,
+                    RECYCLER_VIEW_STATE,
                     binding.recyclerView.layoutManager?.onSaveInstanceState()
                 )
             }
@@ -149,20 +139,14 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         restoredRecyclerViewState =
-            savedInstanceState?.getBundle(TopRepositoriesFragment.RECYCLER_VIEW_STATE)
-                ?.getParcelable(TopRepositoriesFragment.RECYCLER_VIEW_STATE)
+            savedInstanceState?.getBundle(RECYCLER_VIEW_STATE)
+                ?.getParcelable(RECYCLER_VIEW_STATE)
     }
 
     companion object {
-        const val RECYCLER_VIEW_STATE = "recycler_view_state"
-        private const val REPOSITORY_PARCELABLE = "repository_parcelable"
 
-        fun newInstance(repository: Repository) = RepositoryFragment().apply {
-            arguments =
-                bundleOf(REPOSITORY_PARCELABLE to RepositoryParcelable.fromRepository(repository))
-        }
+        private const val RECYCLER_VIEW_STATE = "recycler_view_state"
 
-        fun newInstance() = RepositoryFragment()
     }
 
 }

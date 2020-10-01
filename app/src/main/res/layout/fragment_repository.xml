@@ -35,7 +35,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_back"
                 app:title="@{viewModel.title}" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -87,10 +86,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_star"
-                android:tint="@color/red"
                 app:layout_constraintBottom_toBottomOf="@id/star_count"
                 app:layout_constraintEnd_toStartOf="@id/star_count"
-                app:layout_constraintTop_toTopOf="@id/star_count" />
+                app:layout_constraintTop_toTopOf="@id/star_count"
+                app:tint="@color/red" />
 
             <TextView
                 android:id="@+id/star_count"
@@ -110,10 +109,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_eye"
-                android:tint="@color/red"
                 app:layout_constraintBottom_toBottomOf="@id/watchers_count"
                 app:layout_constraintEnd_toStartOf="@id/watchers_count"
-                app:layout_constraintTop_toTopOf="@id/watchers_count" />
+                app:layout_constraintTop_toTopOf="@id/watchers_count"
+                app:tint="@color/red" />
 
             <TextView
                 android:id="@+id/watchers_count"
@@ -134,10 +133,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_fork"
-                android:tint="@color/red"
                 app:layout_constraintBottom_toBottomOf="@id/forks_count"
                 app:layout_constraintEnd_toStartOf="@id/forks_count"
-                app:layout_constraintTop_toTopOf="@id/forks_count" />
+                app:layout_constraintTop_toTopOf="@id/forks_count"
+                app:tint="@color/red" />
 
             <TextView
                 android:id="@+id/forks_count"
@@ -158,10 +157,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_issue"
-                android:tint="@color/red"
                 app:layout_constraintBottom_toBottomOf="@id/issue_count"
                 app:layout_constraintEnd_toStartOf="@id/issue_count"
-                app:layout_constraintTop_toTopOf="@id/issue_count" />
+                app:layout_constraintTop_toTopOf="@id/issue_count"
+                app:tint="@color/red" />
 
             <TextView
                 android:id="@+id/issue_count"

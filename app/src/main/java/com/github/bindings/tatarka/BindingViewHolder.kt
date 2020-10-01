@@ -9,7 +9,7 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter
 open class BindingViewHolder<T : ItemViewModel>(
     binding: ViewDataBinding,
     private val adapter: BindingRecyclerViewAdapter<T>,
-    vararg onItemClickedListeners: Pair<Int, Function3<View, T, Int, Unit>>
+    vararg onItemClickedListeners: Pair<Int, ((View, T, Int) -> Unit)>
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val itemClickListeners = onItemClickedListeners.toMap()
