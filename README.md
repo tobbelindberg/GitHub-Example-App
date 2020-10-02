@@ -8,8 +8,8 @@ The app consists of three modules:
 ### An `app` module where you find:
 * the UI
 * `ViewModel`s
-* interactors
-* repositories
+* Interactors
+* Repositories
 
 ### A `data` module where you find:
 * Network services
@@ -33,7 +33,7 @@ To talk to the REST API.
 For dependency injection.
 
 ### [BindingCollectionAdapter](https://github.com/evant/binding-collection-adapter)
-This libary goes hand in hand with data binding where you pretty much never have to make your own adapters again.
+This library goes hand in hand with data binding where you pretty much never have to make your own adapters again.
 
 ### Apache Commons Lang
 It contains a `HashCodeBuilder` that is very convenient to use when you wanna ensure unique ids for your adapters.

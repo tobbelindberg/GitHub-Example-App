@@ -1,10 +1,9 @@
 package com.github.ui.toprepositories
 
-import android.content.Context
-import android.content.res.Resources
 import android.text.format.DateFormat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
+import com.github.AndroidMocks
 import com.github.RxRule
 import com.github.TestFileLoader
 import com.github.di.DaggerTestAppComponent
@@ -12,11 +11,6 @@ import com.github.di.GenericViewModelFactory
 import com.github.di.TestAppModule
 import org.junit.*
 import org.junit.runner.RunWith
-import org.mockito.Matchers
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PowerMockIgnore
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
@@ -34,11 +28,7 @@ class TopRepositoriesViewModelTest {
     @JvmField
     val rxRules = RxRule()
 
-    @Mock
-    lateinit var mockApplicationContext: Context
-
-    @Mock
-    private lateinit var mockContextResources: Resources
+    val androidMocks = AndroidMocks()
 
     private var okHttpCountDownLatch: CountDownLatch = CountDownLatch(1)
 
@@ -55,34 +45,9 @@ class TopRepositoriesViewModelTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
-
-        PowerMockito.mockStatic(DateFormat::class.java)
-        Mockito.`when`(
-            DateFormat.format(
-                Matchers.anyString(),
-                Matchers.any(Date::class.java)
-            )
-        ).thenReturn("Apr 25, 2020 13:37")
-
-        Mockito.`when`(mockApplicationContext.resources).thenReturn(mockContextResources)
-        Mockito.`when`(
-            mockContextResources.getQuantityString(
-                Matchers.anyInt(),
-                Matchers.anyInt(),
-                Matchers.anyInt()
-            )
-        ).thenReturn("Some string with a quantity in it")
-        Mockito.`when`(
-            mockContextResources.getString(Matchers.anyInt())
-        ).thenReturn("Some string")
-        Mockito.`when`(
-            mockContextResources.getString(Matchers.anyInt(), Matchers.any())
-        ).thenReturn("Some string with a parameter in it")
-
         okHttpCountDownLatch = CountDownLatch(1)
         testAppModule = TestAppModule(
-            mockApplicationContext,
+            androidMocks.mockApplicationContext,
             Runnable {
                 okHttpCountDownLatch.countDown()
             },
