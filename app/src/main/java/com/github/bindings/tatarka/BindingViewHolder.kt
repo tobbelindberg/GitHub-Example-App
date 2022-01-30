@@ -16,10 +16,10 @@ open class BindingViewHolder<T : ItemViewModel>(
 
     init {
         binding.root.setOnClickListener { view ->
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                itemClickListeners[adapter.getItemViewType(adapterPosition)]?.also { onItemClickedListener ->
-                    adapter.getAdapterItem(adapterPosition)?.also { item ->
-                        onItemClickedListener.invoke(view, item, adapterPosition)
+            adapterPosition.takeIf { it != RecyclerView.NO_POSITION }?.also { pos ->
+                itemClickListeners[adapter.getItemViewType(pos)]?.also { onItemClickedListener ->
+                    adapter.getAdapterItem(pos)?.also { item ->
+                        onItemClickedListener.invoke(view, item, pos)
                     }
                 }
             }

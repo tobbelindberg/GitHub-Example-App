@@ -2,7 +2,7 @@ package com.github.data.parcelable
 
 import android.os.Parcelable
 import com.github.domain.model.Repository
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
