@@ -1,13 +1,13 @@
 package com.github.ui.toprepositories
 
 import com.github.base.state.PartialState
+import com.github.data.paging.PagePartialState
+import com.github.data.paging.RxPager
 import com.github.data.repositories.RepositoryRepo
+import com.github.domain.model.Repository
 import com.github.domain.util.Empty
 import com.github.domain.util.first
-import com.github.ui.toprepositories.state.PageError
-import com.github.ui.toprepositories.state.PageLoaded
-import com.github.ui.toprepositories.state.PageLoading
-import com.github.ui.toprepositories.state.TopRepositoriesState
+import com.github.ui.toprepositories.state.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -18,12 +18,19 @@ class TopRepositoriesInteractor
     private val repositoryRepo: RepositoryRepo
 ) {
 
+    private companion object {
+        private const val INITIAL_PAGE = 1
+        private const val PAGE_SIZE = 20
+    }
+
     private val refresh = PublishSubject.create<Empty>()
+    private val pager = RxPager<Repository, TopRepositoriesState>(INITIAL_PAGE + 1, PAGE_SIZE, ::nextPageObservable)
 
     fun stateObservable(): Observable<TopRepositoriesState> {
         return Observable.merge(
             page(),
-            refresh()
+            refresh(),
+            nextPage()
         )
             .scan(TopRepositoriesState(), ::reduce)
     }
@@ -40,7 +47,7 @@ class TopRepositoriesInteractor
     }
 
     private fun page(): Observable<PartialState<TopRepositoriesState>> {
-        return repositoryRepo.getTopRepositories().first()
+        return repositoryRepo.getTopRepositories(INITIAL_PAGE, PAGE_SIZE).first()
             .subscribeOn(Schedulers.io())
             .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
             .onErrorReturn { PageError(it) }
@@ -49,12 +56,26 @@ class TopRepositoriesInteractor
 
     private fun refresh(): Observable<PartialState<TopRepositoriesState>> {
         return refresh.switchMap { _ ->
-            repositoryRepo.getTopRepositories().first()
+            repositoryRepo.getTopRepositories(INITIAL_PAGE, PAGE_SIZE).first()
                 .subscribeOn(Schedulers.io())
                 .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
                 .onErrorReturn { PageError(it) }
                 .startWithItem(PageLoading())
         }
+    }
+
+    fun onLoadNextPage() {
+        pager.next()
+    }
+
+    private fun nextPage(): Observable<PagePartialState<Repository, TopRepositoriesState>> {
+        return pager.observable
+    }
+
+    private fun nextPageObservable(page: Int): Observable<PagePartialState<Repository, TopRepositoriesState>> {
+        return repositoryRepo.getTopRepositories(page, PAGE_SIZE).firstOrError().toObservable()
+            .subscribeOn(Schedulers.io())
+            .map { NextPageLoaded(it) }
     }
 
 }

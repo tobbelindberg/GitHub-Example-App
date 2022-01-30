@@ -36,13 +36,9 @@ class TopRepositoriesViewModel
             state.error.loge()
         }
 
-        val newList = mutableListOf<RepositoryItemViewModel>()
-
-        state.topRepositories?.mapTo(newList) { repository ->
+        items.set(state.topRepositories.map { repository ->
             RepositoryItemViewModel(repository, resources)
-        }
-
-        items.set(newList)
+        })
 
         loadingVisible.set(state.loading)
 
@@ -51,6 +47,10 @@ class TopRepositoriesViewModel
 
     fun onRefresh() {
         interactor.onRefresh()
+    }
+
+    fun onLoadNextPage() {
+        interactor.onLoadNextPage()
     }
 }
 

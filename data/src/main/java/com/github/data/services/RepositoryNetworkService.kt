@@ -17,8 +17,8 @@ class RepositoryNetworkService
     private val pullRequestMapper: ObjectMapper<PullRequestDTO, PullRequest>
 ) : RepositoryService {
 
-    override fun getTopRepositories(): Observable<List<Repository>> {
-        return restEndpoints.getTopRepositories()
+    override fun getTopRepositories(page: Int, pageSize: Int): Observable<List<Repository>> {
+        return restEndpoints.getTopRepositories(page, pageSize)
             .map {
                 it.items.map(repositoryMapper::map)
             }

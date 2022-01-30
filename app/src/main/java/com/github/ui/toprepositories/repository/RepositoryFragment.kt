@@ -6,7 +6,6 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import androidx.core.content.ContextCompat
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -20,7 +19,6 @@ import com.github.bindings.tatarka.BindingRecyclerViewAdapterIds
 import com.github.bindings.tatarka.GitHubBindingRecyclerViewAdapter
 import com.github.databinding.FragmentRepositoryBinding
 import com.github.ui.toprepositories.repository.vm.PullRequestItemViewModel
-import com.github.utils.FragmentTransitionAnimations
 import com.github.utils.bindingProvider
 import com.github.utils.viewModelProvider
 import com.github.widgets.itemdecorators.IndicesSkippingDividerItemDecoration
@@ -36,8 +34,6 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
     )
 
     private val binding: FragmentRepositoryBinding by bindingProvider(R.layout.fragment_repository)
-
-    private lateinit var transitionAnimations: FragmentTransitionAnimations
 
     val itemBinding =
         ItemBinding.of<PullRequestItemViewModel>(BR.viewModel, R.layout.item_pull_request)
@@ -65,18 +61,6 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
     }).build()
 
     lateinit var itemDecoration: IndicesSkippingDividerItemDecoration
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        transitionAnimations = FragmentTransitionAnimations(
-            requireContext(),
-            FragmentTransitionAnimations.OpenCloseType.IN_OUT_RIGHT
-        )
-    }
-
-    override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        return transitionAnimations.onCreateAnimation(transit, enter, nextAnim)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -110,7 +94,7 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
         return binding.root
     }
 
-    fun onErrorRetry(view: View) {
+    fun onErrorRetry(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.onRefresh()
     }
 

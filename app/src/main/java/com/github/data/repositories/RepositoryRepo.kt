@@ -14,8 +14,8 @@ import javax.inject.Singleton
 class RepositoryRepo
 @Inject constructor(private val repositoryService: RepositoryService) {
 
-    fun getTopRepositories(): Observable<List<Repository>> {
-        return repositoryService.getTopRepositories()
+    fun getTopRepositories(page: Int, pageSize: Int): Observable<List<Repository>> {
+        return repositoryService.getTopRepositories(page, pageSize)
     }
 
     fun getPullRequests(owner: String, repo: String): Observable<List<PullRequest>> {

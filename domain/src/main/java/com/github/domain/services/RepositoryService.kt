@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Observable
 
 interface RepositoryService {
 
-    fun getTopRepositories(): Observable<List<Repository>>
+    fun getTopRepositories(page: Int, pageSize: Int): Observable<List<Repository>>
 
     fun getPullRequests(owner: String, repo: String): Observable<List<PullRequest>>
 

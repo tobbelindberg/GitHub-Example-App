@@ -20,6 +20,7 @@ import com.github.bindings.tatarka.BindingViewHolder
 import com.github.bindings.tatarka.GitHubBindingRecyclerViewAdapter
 import com.github.data.parcelable.RepositoryParcelable
 import com.github.databinding.FragmentTopRepositoriesBinding
+import com.github.data.paging.PagingScrollListener
 import com.github.ui.toprepositories.vm.RepositoryItemViewModel
 import com.github.utils.bindingProvider
 import com.github.utils.viewModelProvider
@@ -30,6 +31,12 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
     GitHubBindingRecyclerViewAdapter.OnAdapterCountChangedListener {
+
+    private companion object {
+        private const val VISIBLE_THRESHOLD = 3
+        private const val RECYCLER_VIEW_STATE = "recycler_view_state"
+    }
+
     override val viewModel: TopRepositoriesViewModel by viewModelProvider(
         { viewModelFactory },
         true
@@ -44,6 +51,8 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
 
     val adapter = GitHubBindingRecyclerViewAdapter<RepositoryItemViewModel>()
     private var restoredRecyclerViewState: Parcelable? = null
+
+    lateinit var pagingScrollListener: PagingScrollListener
 
     val diffConfig = AsyncDifferConfig.Builder(object :
         DiffUtil.ItemCallback<RepositoryItemViewModel>() {
@@ -100,6 +109,11 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
             IndicesSkippingDividerItemDecoration.VERTICAL,
             ContextCompat.getDrawable(requireContext(), R.drawable.divider_grey_100)!!
         )
+
+        pagingScrollListener = PagingScrollListener(
+            binding.recyclerView.layoutManager!!,
+            VISIBLE_THRESHOLD, viewModel::onLoadNextPage
+        )
         adapter.setOnAdapterCountChangedCallback(this)
         binding.fragment = this
         binding.viewModel = viewModel
@@ -107,7 +121,7 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
         return binding.root
     }
 
-    fun onErrorRetry(view: View) {
+    fun onErrorRetry(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.onRefresh()
     }
 
@@ -137,11 +151,4 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
         restoredRecyclerViewState = savedInstanceState?.getBundle(RECYCLER_VIEW_STATE)
             ?.getParcelable(RECYCLER_VIEW_STATE)
     }
-
-    companion object {
-
-        private const val RECYCLER_VIEW_STATE = "recycler_view_state"
-
-    }
-
 }
