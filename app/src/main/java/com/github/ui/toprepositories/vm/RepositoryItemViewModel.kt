@@ -6,7 +6,6 @@ import com.github.R
 import com.github.base.vm.ItemViewModel
 import com.github.domain.model.Repository
 
-
 class RepositoryItemViewModel(val repository: Repository, resources: Resources) : ItemViewModel {
 
     val title = repository.name

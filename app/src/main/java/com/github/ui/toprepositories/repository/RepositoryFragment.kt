@@ -24,7 +24,6 @@ import com.github.utils.viewModelProvider
 import com.github.widgets.itemdecorators.IndicesSkippingDividerItemDecoration
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
-
 class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
     GitHubBindingRecyclerViewAdapter.OnAdapterCountChangedListener {
 

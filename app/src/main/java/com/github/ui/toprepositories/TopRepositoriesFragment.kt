@@ -33,7 +33,6 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
-
 class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
     GitHubBindingRecyclerViewAdapter.OnAdapterCountChangedListener {
 
@@ -109,7 +108,6 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
         (requireActivity().application as GitHubApplication).appComponent.topRepositoriesBuilder()
             .build().inject(this)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

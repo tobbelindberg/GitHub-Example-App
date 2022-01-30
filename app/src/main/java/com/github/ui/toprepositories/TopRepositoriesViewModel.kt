@@ -31,7 +31,6 @@ class TopRepositoriesViewModel
     val paginationErrorData: LiveData<ConsumableState<Throwable>>
         get() = paginationError
 
-
     override fun initializeSubscriptions() {
         interactor.stateObservable()
             .subscribeOn(Schedulers.io())

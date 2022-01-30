@@ -25,7 +25,7 @@ class TopRepositoriesInteractor
     }
 
     private val refresh = PublishSubject.create<Empty>()
-    private val pager = RxPager<Repository, TopRepositoriesState>(INITIAL_PAGE + 1, PAGE_SIZE, ::nextPageObservable)
+    private val pager = RxPager(INITIAL_PAGE + 1, PAGE_SIZE, ::nextPageObservable)
 
     fun stateObservable(): Observable<TopRepositoriesState> {
         return Observable.merge(
