@@ -9,6 +9,7 @@ import com.github.TestFileLoader
 import com.github.di.DaggerTestAppComponent
 import com.github.di.GenericViewModelFactory
 import com.github.di.TestAppModule
+import com.github.ui.toprepositories.vm.RepositoryItemViewModel
 import org.junit.*
 import org.junit.runner.RunWith
 import org.powermock.core.classloader.annotations.PowerMockIgnore
@@ -48,10 +49,10 @@ class TopRepositoriesViewModelTest {
         okHttpCountDownLatch = CountDownLatch(1)
         testAppModule = TestAppModule(
             androidMocks.mockApplicationContext,
-            Runnable {
+            {
                 okHttpCountDownLatch.countDown()
             },
-            "/search/repositories?o=desc&s=stars&q=stars:%3E=50000" to TestFileLoader.readJsonFileFromAssets(
+            "/search/repositories?o=desc&s=stars&q=stars:%3E=60000&page=1&per_page=20" to TestFileLoader.readJsonFileFromAssets(
                 "top_repositories.json"
             )
         )
@@ -84,7 +85,7 @@ class TopRepositoriesViewModelTest {
         Assert.assertEquals(
             " The expected amount of stars does not match",
             "147695",
-            viewModel.items.get()!![3].starCount
+            (viewModel.items.get()!![3] as RepositoryItemViewModel).starCount
         )
     }
 
@@ -96,7 +97,7 @@ class TopRepositoriesViewModelTest {
         Assert.assertEquals(
             "The expected owner does not match",
             "freeCodeCamp",
-            viewModel.items.get()!![0].owner
+            (viewModel.items.get()!![0] as RepositoryItemViewModel).owner
         )
     }
 
@@ -108,7 +109,7 @@ class TopRepositoriesViewModelTest {
         Assert.assertEquals(
             "The expected repository name does not match",
             "vue",
-            viewModel.items.get()!![2].title
+            (viewModel.items.get()!![2] as RepositoryItemViewModel).title
         )
     }
 
@@ -123,7 +124,7 @@ class TopRepositoriesViewModelTest {
         }
 
         val actual = Calendar.getInstance()
-        actual.time = viewModel.items.get()!![1].repository.updatedAt
+        actual.time = (viewModel.items.get()!![1] as RepositoryItemViewModel).repository.updatedAt
 
 
         Assert.assertTrue(

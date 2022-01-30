@@ -3,10 +3,7 @@ package com.github
 import android.content.Context
 import android.content.res.Resources
 import android.text.format.DateFormat
-import org.mockito.Matchers
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.*
 import org.powermock.api.mockito.PowerMockito
 import java.util.*
 
@@ -24,8 +21,8 @@ class AndroidMocks {
         PowerMockito.mockStatic(DateFormat::class.java)
         Mockito.`when`(
             DateFormat.format(
-                Matchers.anyString(),
-                Matchers.any(Date::class.java)
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.any(Date::class.java)
             )
         ).thenReturn("Apr 25, 2020 13:37")
 
@@ -38,10 +35,10 @@ class AndroidMocks {
             )
         ).thenReturn("Some string with a quantity in it")
         Mockito.`when`(
-            mockContextResources.getString(Matchers.anyInt())
+            mockContextResources.getString(ArgumentMatchers.anyInt())
         ).thenReturn("Some string")
         Mockito.`when`(
-            mockContextResources.getString(Matchers.anyInt(), Matchers.any())
+            mockContextResources.getString(ArgumentMatchers.anyInt(), ArgumentMatchers.any())
         ).thenReturn("Some string with a parameter in it")
     }
 

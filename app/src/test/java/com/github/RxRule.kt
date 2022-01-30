@@ -40,7 +40,6 @@ class RxRule : TestRule {
                 RxJavaPlugins.setInitNewThreadSchedulerHandler { _ -> immediate }
                 RxJavaPlugins.setInitSingleSchedulerHandler { _ -> immediate }
                 RxAndroidPlugins.setInitMainThreadSchedulerHandler { _ -> immediate }
-
                 try {
                     base.evaluate()
                 } finally {
