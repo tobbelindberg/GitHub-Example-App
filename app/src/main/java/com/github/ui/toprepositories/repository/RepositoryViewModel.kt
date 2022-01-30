@@ -65,13 +65,9 @@ class RepositoryViewModel
         openIssuesCount.set(state.repository.openIssuesCount.toString())
         language.set(state.repository.language)
 
-        val newList = mutableListOf<PullRequestItemViewModel>()
-
-        state.pullRequests?.mapTo(newList) { pullRequest ->
+        items.set(state.pullRequests.map { pullRequest ->
             PullRequestItemViewModel(pullRequest, resources)
-        }
-
-        items.set(newList)
+        })
 
         loadingVisible.set(state.loading)
 
