@@ -8,6 +8,7 @@ import com.github.domain.model.Repository
 import com.github.domain.util.Empty
 import com.github.domain.util.first
 import com.github.ui.toprepositories.state.*
+import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -58,6 +59,7 @@ class TopRepositoriesInteractor
         return refresh.switchMap { _ ->
             repositoryRepo.getTopRepositories(INITIAL_PAGE, PAGE_SIZE).first()
                 .subscribeOn(Schedulers.io())
+                .doOnNext { pager.reset() }
                 .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
                 .onErrorReturn { PageError(it) }
                 .startWithItem(PageLoading())
@@ -68,14 +70,17 @@ class TopRepositoriesInteractor
         pager.next()
     }
 
-    private fun nextPage(): Observable<PagePartialState<Repository, TopRepositoriesState>> {
+    private fun nextPage(): @NonNull Observable<out PartialState<TopRepositoriesState>> {
         return pager.observable
+
     }
 
     private fun nextPageObservable(page: Int): Observable<PagePartialState<Repository, TopRepositoriesState>> {
-        return repositoryRepo.getTopRepositories(page, PAGE_SIZE).firstOrError().toObservable()
+        return repositoryRepo.getTopRepositories(page, PAGE_SIZE).first()
             .subscribeOn(Schedulers.io())
-            .map { NextPageLoaded(it) }
+            .map<PagePartialState<Repository, TopRepositoriesState>> { NextPageLoaded(it) }
+            .onErrorReturn { NextPageError(it) }
+            .startWithItem(NextPageLoading())
     }
 
 }

@@ -6,6 +6,6 @@ class PageError(private val error: Throwable) : PartialState<TopRepositoriesStat
 
     override fun reduceState(previousState: TopRepositoriesState): TopRepositoriesState {
 
-        return previousState.copy(error = error, loading = false)
+        return previousState.copy(pageError = error, loading = false)
     }
 }

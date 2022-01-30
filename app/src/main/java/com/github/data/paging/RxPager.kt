@@ -19,12 +19,14 @@ class RxPager<E, T : State>(private val initialNextPageToLoad: Int, private val 
             pageLoading = true
         }
         .switchMap(onLoadNextPage)
-        .doOnNext { page ->
-            pages.hasMorePages = page.page.isNotEmpty() && page.page.size >= pageSize
-            pages.nextPageToLoad++
+        .doOnNext { partialPageState ->
+            partialPageState.nextPage?.also { page ->
+                pages.hasMorePages = page.isNotEmpty() && page.size >= pageSize
+                pages.nextPageToLoad++
+            }
         }
         .doOnNext {
-            pageLoading = false
+            pageLoading = it.nextPageLoading
         }
 
     fun next() {
@@ -36,7 +38,7 @@ class RxPager<E, T : State>(private val initialNextPageToLoad: Int, private val 
     }
 
 
-    fun resetTo() {
+    fun reset() {
         pages.nextPageToLoad = initialNextPageToLoad
         pages.hasMorePages = true
         pageLoading = false
