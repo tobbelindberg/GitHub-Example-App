@@ -34,6 +34,8 @@ class RepositoryViewModel
 
     val errorVisible = ObservableBoolean(false)
     val loadingVisible = ObservableBoolean(false)
+    val swipeLoading = ObservableBoolean(false)
+
     val items = ObservableField<List<PullRequestItemViewModel>>(listOf())
 
     override fun initializeSubscriptions() {
@@ -71,11 +73,13 @@ class RepositoryViewModel
 
         loadingVisible.set(state.loading)
 
+        swipeLoading.set(state.swipeLoading)
+
         errorVisible.set(state.error != null && !state.loading)
     }
 
-    fun onRefresh() {
-        interactor.onRefresh()
+    fun onRefresh(swipeRefreshing: Boolean = false) {
+        interactor.onRefresh(swipeRefreshing)
     }
 }
 

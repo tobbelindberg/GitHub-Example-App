@@ -97,6 +97,10 @@ class RepositoryFragment : BaseFragment<RepositoryViewModel>(),
         viewModel.onRefresh()
     }
 
+    fun onRefresh() {
+        viewModel.onRefresh(swipeRefreshing = true)
+    }
+
     override fun onAdapterCountChanged(count: Int) {
         if (count > 0) {
             itemDecoration.setSkipIndices(setOf(count - 1))

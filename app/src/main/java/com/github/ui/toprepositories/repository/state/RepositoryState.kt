@@ -8,5 +8,6 @@ data class RepositoryState(
     val repository: Repository,
     val pullRequests: List<PullRequest> = emptyList(),
     val error: Throwable? = null,
-    val loading: Boolean = false
+    val loading: Boolean = false,
+    val swipeLoading: Boolean = false
 ) : State

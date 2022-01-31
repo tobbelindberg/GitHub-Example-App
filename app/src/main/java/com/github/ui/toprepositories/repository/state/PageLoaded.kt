@@ -9,6 +9,6 @@ class PageLoaded(private val pullRequests: List<PullRequest>) :
 
     override fun reduceState(previousState: RepositoryState): RepositoryState {
 
-        return previousState.copy(pullRequests = pullRequests, loading = false, error = null)
+        return previousState.copy(pullRequests = pullRequests, loading = false, swipeLoading = false, error = null)
     }
 }
