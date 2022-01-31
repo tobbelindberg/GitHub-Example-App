@@ -38,25 +38,34 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            clipToOutline="@{true}"
-            itemDecoration="@{fragment.itemDecoration}"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            app:adapter="@{fragment.adapter}"
-            app:diffConfig="@{fragment.diffConfig}"
-            app:itemBinding="@{fragment.itemBinding}"
-            app:itemIds="@{fragment.itemIds}"
-            app:items="@{viewModel.items}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_bar"
-            app:onScrollListener="@{fragment.pagingScrollListener}"
-            app:viewHolder="@{fragment.viewHolderFactory}" />
+            app:onRefreshListener="@{fragment::onRefresh}"
+            app:refreshing="@{viewModel.swipeLoading}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                clipToOutline="@{true}"
+                goneUnless="@{!viewModel.errorVisible}"
+                itemDecoration="@{fragment.itemDecoration}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:adapter="@{fragment.adapter}"
+                app:diffConfig="@{fragment.diffConfig}"
+                app:itemBinding="@{fragment.itemBinding}"
+                app:itemIds="@{fragment.itemIds}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:onScrollListener="@{fragment.pagingScrollListener}"
+                app:viewHolder="@{fragment.viewHolderFactory}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
         <ProgressBar

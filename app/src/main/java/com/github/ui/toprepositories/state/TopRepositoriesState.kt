@@ -8,6 +8,7 @@ data class TopRepositoriesState(
     val topRepositories: List<Repository> = emptyList(),
     val pageError: Throwable? = null,
     val loading: Boolean = false,
+    val swipeLoading: Boolean = false,
     val nextPageLoading: Boolean = false,
     val nextPageError: ConsumableState<Throwable> = ConsumableState.of()
 ) : State

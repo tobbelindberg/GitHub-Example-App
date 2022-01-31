@@ -5,7 +5,6 @@ import com.github.data.paging.PagePartialState
 import com.github.data.paging.RxPager
 import com.github.data.repositories.RepositoryRepo
 import com.github.domain.model.Repository
-import com.github.domain.util.Empty
 import com.github.domain.util.first
 import com.github.ui.toprepositories.state.*
 import io.reactivex.rxjava3.annotations.NonNull
@@ -24,7 +23,7 @@ class TopRepositoriesInteractor
         private const val PAGE_SIZE = 20
     }
 
-    private val refresh = PublishSubject.create<Empty>()
+    private val refresh = PublishSubject.create<Boolean>()
     private val pager = RxPager(INITIAL_PAGE + 1, PAGE_SIZE, ::nextPageObservable)
 
     fun stateObservable(): Observable<TopRepositoriesState> {
@@ -43,26 +42,22 @@ class TopRepositoriesInteractor
         return partialState.reduceState(previousState)
     }
 
-    fun onRefresh() {
-        refresh.onNext(Empty)
+    fun onRefresh(swipeRefreshing: Boolean) {
+        refresh.onNext(swipeRefreshing)
     }
 
-    private fun page(): Observable<PartialState<TopRepositoriesState>> {
+    private fun page(swipeRefreshing: Boolean = false): Observable<PartialState<TopRepositoriesState>> {
         return repositoryRepo.getTopRepositories(INITIAL_PAGE, PAGE_SIZE).first()
             .subscribeOn(Schedulers.io())
+            .doOnNext { pager.reset() }
             .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
             .onErrorReturn { PageError(it) }
-            .startWithItem(PageLoading())
+            .startWithItem(PageLoading(swipeRefreshing))
     }
 
     private fun refresh(): Observable<PartialState<TopRepositoriesState>> {
-        return refresh.switchMap { _ ->
-            repositoryRepo.getTopRepositories(INITIAL_PAGE, PAGE_SIZE).first()
-                .subscribeOn(Schedulers.io())
-                .doOnNext { pager.reset() }
-                .map<PartialState<TopRepositoriesState>> { PageLoaded(it) }
-                .onErrorReturn { PageError(it) }
-                .startWithItem(PageLoading())
+        return refresh.switchMap { swipeRefreshing ->
+            page(swipeRefreshing)
         }
     }
 

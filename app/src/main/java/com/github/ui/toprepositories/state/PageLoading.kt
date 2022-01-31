@@ -2,10 +2,12 @@ package com.github.ui.toprepositories.state
 
 import com.github.base.state.PartialState
 
-class PageLoading : PartialState<TopRepositoriesState> {
+class PageLoading(private val swipeRefreshing: Boolean = false) : PartialState<TopRepositoriesState> {
 
     override fun reduceState(previousState: TopRepositoriesState): TopRepositoriesState {
+        val loading = true.takeIf { !swipeRefreshing } ?: previousState.loading
+        val swipeLoading = true.takeIf { swipeRefreshing } ?: previousState.swipeLoading
 
-        return previousState.copy(loading = true)
+        return previousState.copy(loading = loading, swipeLoading = swipeLoading)
     }
 }

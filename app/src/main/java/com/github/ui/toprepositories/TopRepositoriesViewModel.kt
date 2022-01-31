@@ -26,6 +26,7 @@ class TopRepositoriesViewModel
 
     val errorVisible = ObservableBoolean(false)
     val loadingVisible = ObservableBoolean(false)
+    val swipeLoading = ObservableBoolean(false)
     val items = ObservableField<List<ItemViewModel>>(listOf())
     private val paginationError = MutableLiveData<ConsumableState<Throwable>>()
     val paginationErrorData: LiveData<ConsumableState<Throwable>>
@@ -56,6 +57,8 @@ class TopRepositoriesViewModel
 
         loadingVisible.set(state.loading)
 
+        swipeLoading.set(state.swipeLoading)
+
         errorVisible.set(state.pageError != null && !state.loading)
 
         state.nextPageError.consume {
@@ -63,8 +66,8 @@ class TopRepositoriesViewModel
         }
     }
 
-    fun onRefresh() {
-        interactor.onRefresh()
+    fun onRefresh(swipeRefreshing: Boolean = false) {
+        interactor.onRefresh(swipeRefreshing)
     }
 
     fun onLoadNextPage() {
