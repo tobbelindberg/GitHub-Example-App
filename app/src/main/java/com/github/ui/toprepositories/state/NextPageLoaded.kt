@@ -1,6 +1,6 @@
 package com.github.ui.toprepositories.state
 
-import com.github.data.paging.PagePartialState
+import com.github.utils.paging.PagePartialState
 import com.github.domain.model.Repository
 import okhttp3.internal.toImmutableList
 

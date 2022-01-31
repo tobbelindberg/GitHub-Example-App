@@ -1,4 +1,4 @@
-package com.github.data.paging
+package com.github.utils.paging
 
 import com.github.base.state.PartialState
 import com.github.base.state.State

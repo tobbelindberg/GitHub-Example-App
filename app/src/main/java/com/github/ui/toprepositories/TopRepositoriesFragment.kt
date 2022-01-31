@@ -20,7 +20,7 @@ import com.github.base.vm.LoadingFooterItemViewModel
 import com.github.bindings.tatarka.BindingRecyclerViewAdapterIds
 import com.github.bindings.tatarka.BindingViewHolder
 import com.github.bindings.tatarka.GitHubBindingRecyclerViewAdapter
-import com.github.data.paging.PagingScrollListener
+import com.github.utils.paging.PagingScrollListener
 import com.github.data.parcelable.RepositoryParcelable
 import com.github.databinding.FragmentTopRepositoriesBinding
 import com.github.ui.toprepositories.vm.RepositoryItemViewModel

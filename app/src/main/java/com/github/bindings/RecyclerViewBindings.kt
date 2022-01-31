@@ -2,7 +2,7 @@ package com.github.bindings
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.github.data.paging.PagingScrollListener
+import com.github.utils.paging.PagingScrollListener
 
 @BindingAdapter("itemDecoration")
 fun RecyclerView.setItemDecoration(

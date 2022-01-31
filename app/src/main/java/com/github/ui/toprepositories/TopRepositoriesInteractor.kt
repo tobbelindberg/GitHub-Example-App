@@ -1,8 +1,8 @@
 package com.github.ui.toprepositories
 
 import com.github.base.state.PartialState
-import com.github.data.paging.PagePartialState
-import com.github.data.paging.RxPager
+import com.github.utils.paging.PagePartialState
+import com.github.utils.paging.RxPager
 import com.github.data.repositories.RepositoryRepo
 import com.github.domain.model.Repository
 import com.github.domain.util.first

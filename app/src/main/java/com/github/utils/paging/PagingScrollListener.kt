@@ -1,4 +1,4 @@
-package com.github.data.paging
+package com.github.utils.paging
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
