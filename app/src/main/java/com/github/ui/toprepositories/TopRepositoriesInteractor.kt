@@ -1,12 +1,12 @@
 package com.github.ui.toprepositories
 
 import com.github.base.state.PartialState
-import com.github.utils.paging.PagePartialState
-import com.github.utils.paging.RxPager
 import com.github.data.repositories.RepositoryRepo
 import com.github.domain.model.Repository
 import com.github.domain.util.first
 import com.github.ui.toprepositories.state.*
+import com.github.utils.paging.PagePartialState
+import com.github.utils.paging.RxPager
 import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers

@@ -10,7 +10,7 @@ class PagingScrollListener(
 ) : RecyclerView.OnScrollListener() {
 
     private var lastVisibleItem = 0
-    var enabled = false
+    var enabled = true
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         if (dx == 0 && dy == 0) {

@@ -34,7 +34,6 @@ class RepositoryViewModelTest {
 
     private var okHttpCountDownLatch: CountDownLatch = CountDownLatch(1)
 
-
     private lateinit var testAppModule: TestAppModule
 
     @Inject
@@ -128,4 +127,5 @@ class RepositoryViewModelTest {
             viewModel.items.get()!![2].pullRequest.state
         )
     }
+
 }

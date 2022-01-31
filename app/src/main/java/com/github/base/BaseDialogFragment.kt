@@ -26,5 +26,4 @@ abstract class BaseDialogFragment<VM : BaseViewModel> : AppCompatDialogFragment(
         viewModel.initStateObservable()
     }
 
-
 }

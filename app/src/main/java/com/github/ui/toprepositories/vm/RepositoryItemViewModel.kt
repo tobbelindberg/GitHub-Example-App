@@ -18,7 +18,6 @@ class RepositoryItemViewModel(val repository: Repository, resources: Resources) 
 
     val starCount = repository.starCount.toString()
 
-
     override fun itemId(): Long {
         return repository.id
     }

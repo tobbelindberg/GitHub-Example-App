@@ -32,7 +32,6 @@ open class AppModule(private val appContext: Context) {
         return appContext
     }
 
-
     @Provides
     fun provideResources(): Resources {
         return appContext.resources

@@ -33,7 +33,6 @@ class TopRepositoriesViewModelTest {
 
     private var okHttpCountDownLatch: CountDownLatch = CountDownLatch(1)
 
-
     private lateinit var testAppModule: TestAppModule
 
     @Inject
@@ -135,4 +134,5 @@ class TopRepositoriesViewModelTest {
                     && expected.get(Calendar.MINUTE) == actual.get(Calendar.MINUTE)
         )
     }
+
 }

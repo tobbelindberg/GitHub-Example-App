@@ -8,7 +8,6 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 class RxPager<E, T : State>(private val initialNextPageToLoad: Int, private val pageSize: Int, onLoadNextPage: (Int) -> Observable<PagePartialState<E, T>>) {
     private val pages = Pages(nextPageToLoad = initialNextPageToLoad)
 
-
     private val pageSubject = PublishSubject.create<Int>().toSerialized()
     private var pageLoading = false
 
@@ -36,7 +35,6 @@ class RxPager<E, T : State>(private val initialNextPageToLoad: Int, private val 
             }
         }
     }
-
 
     fun reset() {
         pages.nextPageToLoad = initialNextPageToLoad

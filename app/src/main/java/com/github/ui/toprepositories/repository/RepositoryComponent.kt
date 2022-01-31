@@ -9,9 +9,7 @@ import dagger.Subcomponent
 @Subcomponent
 interface RepositoryComponent {
 
-
     fun inject(repositoryFragment: RepositoryFragment)
-
 
     @Subcomponent.Builder
     interface Builder {

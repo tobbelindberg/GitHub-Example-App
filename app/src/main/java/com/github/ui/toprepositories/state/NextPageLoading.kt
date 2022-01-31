@@ -1,7 +1,7 @@
 package com.github.ui.toprepositories.state
 
-import com.github.utils.paging.PagePartialState
 import com.github.domain.model.Repository
+import com.github.utils.paging.PagePartialState
 
 class NextPageLoading(override val nextPage: List<Repository>? = null, override val nextPageLoading: Boolean = true) : PagePartialState<Repository, TopRepositoriesState> {
 

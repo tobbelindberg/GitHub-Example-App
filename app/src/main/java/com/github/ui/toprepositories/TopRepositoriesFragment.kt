@@ -20,12 +20,12 @@ import com.github.base.vm.LoadingFooterItemViewModel
 import com.github.bindings.tatarka.BindingRecyclerViewAdapterIds
 import com.github.bindings.tatarka.BindingViewHolder
 import com.github.bindings.tatarka.GitHubBindingRecyclerViewAdapter
-import com.github.utils.paging.PagingScrollListener
 import com.github.data.parcelable.RepositoryParcelable
 import com.github.databinding.FragmentTopRepositoriesBinding
 import com.github.ui.toprepositories.vm.RepositoryItemViewModel
 import com.github.utils.ConsumableState
 import com.github.utils.bindingProvider
+import com.github.utils.paging.PagingScrollListener
 import com.github.utils.viewModelProvider
 import com.github.widgets.itemdecorators.IndicesSkippingDividerItemDecoration
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -165,7 +165,6 @@ class TopRepositoriesFragment : BaseFragment<TopRepositoriesViewModel>(),
             restoredRecyclerViewState?.also { recyclerViewState ->
                 binding.recyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
             }
-            pagingScrollListener.enabled = true
         }
     }
 

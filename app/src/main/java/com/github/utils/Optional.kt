@@ -15,7 +15,7 @@ class Optional<T>(private val value: T?) {
     fun orElse(default: T?): T? {
         return value ?: default
     }
-    
+
     fun isPresent() = value != null
 
     companion object {

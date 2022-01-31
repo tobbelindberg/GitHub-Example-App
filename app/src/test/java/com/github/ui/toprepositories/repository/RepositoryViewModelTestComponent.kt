@@ -9,9 +9,7 @@ import dagger.Subcomponent
 @Subcomponent
 interface RepositoryViewModelTestComponent {
 
-
     fun inject(postDetailViewModelTest: RepositoryViewModelTest)
-
 
     @Subcomponent.Builder
     interface Builder {

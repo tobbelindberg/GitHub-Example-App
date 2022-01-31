@@ -69,7 +69,6 @@ class IndicesSkippingDividerItemDecoration(context: Context, orientation: Int) :
         this.skipIndices.addAll(skipIndices)
     }
 
-
     /**
      * Sets the [Drawable] for this divider.
      *
@@ -78,7 +77,6 @@ class IndicesSkippingDividerItemDecoration(context: Context, orientation: Int) :
     fun setDivider(divider: Drawable) {
         this.divider = divider
     }
-
 
     /**
      * Sets the orientation for this divider. This should be called if
