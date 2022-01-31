@@ -1,7 +1,7 @@
 # GitHub-Example-App
-An android example app using the GitHub API the display GitHub's most popular repositories based on their star count.
+An android example app using the GitHub API to display GitHub's most popular repositories based on their star count.
 
-Note that there is no authentication setup for this app which means that app is limited to 10 requests per minute. However this also means that you can easily test the error handling.
+Note that there is no authentication setup in the app which means that the app is limited to 10 requests per minute. However, this also means that you can easily test the error handling in the app.
 
 ## Architecture
 An MVVM/MVI architecture where the UI has `ViewModel`s that observes the state of interactors and all state changes is delivered with partial states updating the interactors state object in a unidirectional way without side effects.
