@@ -72,7 +72,7 @@ class TopRepositoriesViewModelTest {
 
         Assert.assertEquals(
             " The expected amount of repositories does not match",
-            30,
+            20,
             viewModel.items.get()!!.size
         )
     }
@@ -84,7 +84,7 @@ class TopRepositoriesViewModelTest {
 
         Assert.assertEquals(
             " The expected amount of stars does not match",
-            "147695",
+            "205545",
             (viewModel.items.get()!![3] as RepositoryItemViewModel).starCount
         )
     }
@@ -108,7 +108,7 @@ class TopRepositoriesViewModelTest {
 
         Assert.assertEquals(
             "The expected repository name does not match",
-            "vue",
+            "free-programming-books",
             (viewModel.items.get()!![2] as RepositoryItemViewModel).title
         )
     }
@@ -119,7 +119,7 @@ class TopRepositoriesViewModelTest {
         okHttpCountDownLatch.await()
 
         val expected = Calendar.getInstance().apply {
-            set(2020, 3, 28, 22, 4, 40)
+            set(2022, 0, 31, 12, 52, 45)
             timeZone = TimeZone.getTimeZone("CET")
         }
 
